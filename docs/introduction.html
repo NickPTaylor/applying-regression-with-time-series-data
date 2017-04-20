@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applying Regression with Time Series Data</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Applying Regression with Time Series Data">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applying Regression with Time Series Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applying Regression with Time Series Data" />
+  
+  
+  
+
+<meta name="author" content="Nick P Taylor">
+
+
+<meta name="date" content="2017-04-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="method.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="method.html"><a href="method.html"><i class="fa fa-check"></i><b>2</b> Method</a><ul>
+<li class="chapter" data-level="2.1" data-path="method.html"><a href="method.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="method.html"><a href="method.html#r-packages"><i class="fa fa-check"></i><b>2.2</b> R Packages</a></li>
+<li class="chapter" data-level="2.3" data-path="method.html"><a href="method.html#simulations"><i class="fa fa-check"></i><b>2.3</b> Simulations</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="method.html"><a href="method.html#cross-sectional-simulation"><i class="fa fa-check"></i><b>2.3.1</b> Cross-sectional Simulation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="method.html"><a href="method.html#time-series-simulation"><i class="fa fa-check"></i><b>2.3.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="method.html"><a href="method.html#generic-modelling-function"><i class="fa fa-check"></i><b>2.4</b> Generic Modelling Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a><ul>
+<li class="chapter" data-level="3.1" data-path="results.html"><a href="results.html#linear-regression-modelling"><i class="fa fa-check"></i><b>3.1</b> Linear Regression Modelling</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="results.html"><a href="results.html#cross-sectional-sample"><i class="fa fa-check"></i><b>3.1.1</b> Cross-Sectional Sample</a></li>
+<li class="chapter" data-level="3.1.2" data-path="results.html"><a href="results.html#time-series-simulation-1"><i class="fa fa-check"></i><b>3.1.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="results.html"><a href="results.html#arimax-modelling"><i class="fa fa-check"></i><b>3.2</b> ARIMAX Modelling</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="results.html"><a href="results.html#fixed-first-order-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.1</b> Fixed First Order Auto-regressive Error</a></li>
+<li class="chapter" data-level="3.2.2" data-path="results.html"><a href="results.html#automatically-calculated-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.2</b> Automatically Calculated Auto-regressive Error</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applying Regression with Time Series Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>Recently, interest has emerged in performing predictive analyses in real-time in order to predict the operating outputs of subsystems of a power plant. Being able to perform such predictions with <em>confidence</em> enables the ability to forecast the impending operation for a range for scenarios and to take suitable actions to optimise overall power plant operation.</p>
+<p>In statistical analysis, confidence is formally quantified by <em>confidence intervals</em>. Computing the confidence interval accurately is an essential aspect of developing models that are useful and trustworthy. However, time series data poses challenges and requires special treatment. Failure to account for time series effects in data will result in inaccurate predictions of confidence intervals and a model that is not as useful as it could be.</p>
+<p><span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span> explain in <a href="https://www.otexts.org/fpp/1/4">§1.4</a> that most forecasting data can broadly be classified as:</p>
+<ul>
+<li><p><strong>Cross-sectional</strong>. The training data are taken from a random cross-section of a population. The aim is to predict the value of something that has not been observed, using the information on the cases that have been observed. In this report, the variable to be predicted will be referred to as the <em>reponse</em> and the variable(s) that are used to compute the prediction will be referred to as <em>explanatory variable(s)</em>.</p></li>
+<li><p><strong>Time series</strong>. The training data are collected chronologically. The objective of the model is typically to predict the response at some time in the future. This is achieved by attempting to explain variance in the response by the variance in the response that has previously occurred. For example, time series may exhibit annual seasonality so one can attempt to forecast a variable by using information pertaining to the response of that same variable last year. Also, it is common that data in time series will be dependent on the data that has recently occurred. This is known as <a href="https://en.wikipedia.org/wiki/Autoregressive_model">auto-regression</a>. When using a time series sample, often the aim is to predict a response from its own history.</p></li>
+</ul>
+<p>In <a href="https://www.otexts.org/fpp/9/1">§9.1</a>, <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span> discuss a more complex scenario:</p>
+<ul>
+<li><strong>Dynamic Regression</strong>. Similarly to cross-section data, the aim is to predict a response from explanatory variables. However, the data is not observed as a cross-section but rather as a time series. As such, the model is a hybrid of the cross-sectional and time series forecast classifications. Modelling using this type of data presents specific challenges.</li>
+</ul>
+<p>Consider the following question which may arise in the context of combustion in a power plant:</p>
+<blockquote>
+<p>Can some response, e.g. NOx emissions, be predicted given one or more explanatory variables e.g. load, fuel composition, stochiometry, etc.</p>
+</blockquote>
+<p>Often, the data available to answer such questions is in the form of a time series, for example, data from a test rig or a plant DCS (Dynamic Control System). Hence, the classification of the appropriate model is the <em>dynamic regression</em>.</p>
+<p>The technical basis for the methods used in this report are described in <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span> which is freely available online book. The focus in this report is to demonstrate the methods and their adequacy through simulation. The R programming language will be used; this report is written with the <code>bookdown</code> package <span class="citation">(Xie <a href="#ref-xie_2016mmdd">2016</a>)</span>.</p>
+<p>The analysis in this report is intended for readers who have some knowledge of statistics. Readers are assumed to be comfortable with terminology such as: linear regression, expected value, variance, standard error, irreducible error, normal distribution, confidence interval, bias, statistical significance testing, p-values, auto-correlation, etc.</p>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-hyndman_2014mm">
+<p>Hyndman, Rob J., and George Athanasopoulos. 2014. <em>Forecasting: Principles and Practice</em>. OTexts. <a href="https://www.otexts.org/fpp" class="uri">https://www.otexts.org/fpp</a>.</p>
+</div>
+<div id="ref-xie_2016mmdd">
+<p>Xie, Yihui. 2016. “Bookdown: Authoring Books and Technical Documents with R Markdown.”</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="method.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

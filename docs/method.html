@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applying Regression with Time Series Data</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Applying Regression with Time Series Data">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applying Regression with Time Series Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applying Regression with Time Series Data" />
+  
+  
+  
+
+<meta name="author" content="Nick P Taylor">
+
+
+<meta name="date" content="2017-04-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction.html">
+<link rel="next" href="results.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="method.html"><a href="method.html"><i class="fa fa-check"></i><b>2</b> Method</a><ul>
+<li class="chapter" data-level="2.1" data-path="method.html"><a href="method.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="method.html"><a href="method.html#r-packages"><i class="fa fa-check"></i><b>2.2</b> R Packages</a></li>
+<li class="chapter" data-level="2.3" data-path="method.html"><a href="method.html#simulations"><i class="fa fa-check"></i><b>2.3</b> Simulations</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="method.html"><a href="method.html#cross-sectional-simulation"><i class="fa fa-check"></i><b>2.3.1</b> Cross-sectional Simulation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="method.html"><a href="method.html#time-series-simulation"><i class="fa fa-check"></i><b>2.3.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="method.html"><a href="method.html#generic-modelling-function"><i class="fa fa-check"></i><b>2.4</b> Generic Modelling Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a><ul>
+<li class="chapter" data-level="3.1" data-path="results.html"><a href="results.html#linear-regression-modelling"><i class="fa fa-check"></i><b>3.1</b> Linear Regression Modelling</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="results.html"><a href="results.html#cross-sectional-sample"><i class="fa fa-check"></i><b>3.1.1</b> Cross-Sectional Sample</a></li>
+<li class="chapter" data-level="3.1.2" data-path="results.html"><a href="results.html#time-series-simulation-1"><i class="fa fa-check"></i><b>3.1.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="results.html"><a href="results.html#arimax-modelling"><i class="fa fa-check"></i><b>3.2</b> ARIMAX Modelling</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="results.html"><a href="results.html#fixed-first-order-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.1</b> Fixed First Order Auto-regressive Error</a></li>
+<li class="chapter" data-level="3.2.2" data-path="results.html"><a href="results.html#automatically-calculated-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.2</b> Automatically Calculated Auto-regressive Error</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applying Regression with Time Series Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="method" class="section level1">
+<h1><span class="header-section-number">2</span> Method</h1>
+<div id="setup" class="section level2">
+<h2><span class="header-section-number">2.1</span> Setup</h2>
+<p>This block of code is for basic setup of the analysis described in this report.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># require the following libraries ----------------------------------------------</span>
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
+<span class="kw">library</span>(stringr)
+<span class="kw">library</span>(forecast)
+<span class="kw">library</span>(multidplyr)
+<span class="kw">library</span>(stringr)
+
+<span class="co"># setup knitr options ----------------------------------------------------------</span>
+knitr::opts_chunk$<span class="kw">set</span>(
+  <span class="dt">comment =</span> <span class="st">&quot;##&gt;&quot;</span>,
+  <span class="dt">collapse =</span> <span class="ot">TRUE</span>,
+  <span class="dt">fig.width =</span> <span class="dv">6</span>,
+  <span class="dt">fig.asp =</span> <span class="fl">0.618</span>,
+  <span class="dt">out.width =</span> <span class="st">&quot;70%&quot;</span>,
+  <span class="dt">fig.align =</span> <span class="st">&quot;center&quot;</span>
+)</code></pre></div>
+</div>
+<div id="r-packages" class="section level2">
+<h2><span class="header-section-number">2.2</span> R Packages</h2>
+<p>In general, <code>tidyverse</code> packages are used for manipulating data and applying functions across data frames <span class="citation">(Wickham <a href="#ref-wickham_20170127">2017</a>)</span>. Plots in this report use <code>ggplot</code> <span class="citation">(Wickham <a href="#ref-wickham_2009mmdd">2009</a>)</span>, which is imported as part of the <code>tidyverse</code>. The <code>tidyverse</code> packages are complimented by the <code>broom</code> package for tidying model classes <span class="citation">(Robinson <a href="#ref-robinson_20170213">2016</a>)</span>. ARIMAX modelling and <code>ggplot</code> style time series plotting is made available through the <code>forecast</code> package <span class="citation">(Rob J Hyndman <a href="#ref-hyndman_20170222">2017</a>)</span>. Since modelling is performed for many simulations, significant time savings are available by parallelising the computations. In order to do this, the <code>multidplyr</code> package is used; this is currently only available as a development package on GitHub <span class="citation">(Wickham, n.d.)</span>.</p>
+</div>
+<div id="simulations" class="section level2">
+<h2><span class="header-section-number">2.3</span> Simulations</h2>
+<p>Observational data will be modelled by simulation. The advantage of using simulation data is that the <em>population</em> characteristics are known so it is possible to quantify the performance of a statistical model. Two simulations will be generated:</p>
+<ol style="list-style-type: decimal">
+<li><p>A cross-sectional sample with one response and one explanatory variable.</p></li>
+<li><p>A time series sample with one response and one explanatory variable.</p></li>
+</ol>
+<p>The <em>performance</em> of simulations will be assessed by:</p>
+<ul>
+<li><p><strong>Bias</strong> - the accuracy of the predicted coefficient of the explanatory variable.</p></li>
+<li><p><strong>Efficiency</strong> - the accuracy of the predicted confidence interval.</p></li>
+</ul>
+<p>The next block of code provides basic setup of the simulations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">20170410</span>)
+no_sims &lt;-<span class="st"> </span>10000L    <span class="co"># L is for integer!</span>
+no_obs &lt;-<span class="st"> </span>500L</code></pre></div>
+<p>In each simulation case, 10000 simulations will be generated with 500 observations in each simulation. A seed has been set so that the simulations are reproducible.</p>
+<div id="cross-sectional-simulation" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Cross-sectional Simulation</h3>
+<p>To simulate a cross-sectional data sample, the data will be generated according to</p>
+<p><span class="math display" id="eq:lin-mod">\[
+  y = x + e
+  \tag{2.1}
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is an irreducible error term; errors will be independent and identically distributed (iid) random variables from a standard normal distribution i.e. mean and variance are 0 and 1 respectively. <span class="math inline">\(x\)</span> will be sampled from a uniform distribution bounded between -10 and 10.</p>
+<p>In this model, <span class="math inline">\(x\)</span> varies with <span class="math inline">\(y\)</span> and the coefficient is 1. The model has deliberately been made very simple. Of course, in reality, the statistician will not know the form of the model and the coefficients, neither will the irreducible error, <span class="math inline">\(e\)</span>, ever observed. Statistical methods enable an <em>estimate</em> of the coefficients and error in the overall population to be inferred from a sample of observations.</p>
+<p>This code block creates 10000 randomly generated simulations of sample size 500 of cross-sectional observations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function for making simulation IDs -------------------------------------------</span>
+make_id &lt;-<span class="st"> </span>function(x) {
+    <span class="kw">str_c</span>(<span class="st">&quot;sim_&quot;</span>, <span class="kw">str_pad</span>(x, <span class="dt">width =</span> <span class="dv">3</span>, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;0&quot;</span>))
+}
+<span class="co"># function to generate simulation ----------------------------------------------</span>
+sim_xs_obs &lt;-<span class="st"> </span>function() {
+   <span class="kw">tibble</span>(
+       <span class="co"># order of observation --------------------------------------------------</span>
+       <span class="dt">t =</span> <span class="dv">1</span>:no_obs,
+       <span class="co"># explanatory variable --------------------------------------------------</span>
+       <span class="dt">x =</span> <span class="kw">runif</span>(no_obs, -<span class="dv">10</span>, <span class="dv">10</span>),
+       <span class="co"># response -------------------------------------------------------------- </span>
+       <span class="dt">y =</span> x +<span class="st"> </span><span class="kw">rnorm</span>(no_obs)
+    )
+} 
+
+<span class="co"># repeat simulation many times -------------------------------------------------</span>
+sims_xs &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">id =</span> <span class="kw">map_chr</span>(<span class="dv">1</span>:no_sims, make_id),  
+    <span class="dt">obs =</span> <span class="kw">replicate</span>(no_sims, <span class="kw">sim_xs_obs</span>(), <span class="dt">simplify =</span> <span class="ot">FALSE</span>))  </code></pre></div>
+<p>Note that the variable <span class="math inline">\(t\)</span> in the above nominally refers to time. This is for consistency with the time series simulation, described in §<a href="method.html#time-series-simulation">2.3.2</a>. In the case of cross-sectional samples, time is not relevant and <span class="math inline">\(t\)</span> instead refers to order in which data are observed.</p>
+<p>Next, functions are defined and invoked to generate two plots:</p>
+<ul>
+<li><p>A scatter plot of the response, <span class="math inline">\(y\)</span>, versus the explanatory variable, <span class="math inline">\(x\)</span>, for the simulation. This includes a black dashed line of <span class="math inline">\(y=x\)</span> i.e. the known population relationship.</p></li>
+<li><p>A scatter plot of the explanatory variable, <span class="math inline">\(x\)</span>, in order of when it is observed i.e. its index.</p></li>
+</ul>
+<p>Note that only the middle 100 observations from the first 2 simulations are considered to enhance clarity.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_sims_xy_scatter &lt;-<span class="st"> </span>function(df, <span class="dt">subtitle =</span> <span class="st">&quot;&quot;</span>) {
+
+    <span class="co"># extract first two simulations --------------------------------------------</span>
+    df &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">2</span>) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">unnest</span>()
+    
+    <span class="co"># xy scatter plot function -------------------------------------------------</span>
+    <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y, <span class="dt">colour =</span> id)) +
+<span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) +
+<span class="st">        </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="dv">1</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) +
+<span class="st">        </span><span class="kw">labs</span>(
+            <span class="dt">title =</span> <span class="st">&quot;Response versus Explanatory Variable&quot;</span>,
+            <span class="dt">subtitle =</span> subtitle,
+            <span class="dt">x =</span> <span class="st">&quot;x&quot;</span>,
+            <span class="dt">y =</span> <span class="st">&quot;y&quot;</span>,
+            <span class="dt">colour =</span> <span class="st">&#39;Simulation&#39;</span>
+        )
+}
+
+<span class="co"># x order scatter plot function ------------------------------------------------</span>
+gg_sims_xorder_scatter &lt;-<span class="st"> </span>function(df, <span class="dt">subtitle =</span> <span class="st">&quot;&quot;</span>) {
+    
+    <span class="co"># extract first two simulations --------------------------------------------</span>
+    df &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">2</span>) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">unnest</span>() %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">filter</span>(<span class="kw">between</span>(t, no_obs/<span class="dv">2</span> -<span class="st"> </span><span class="dv">50</span>, no_obs/<span class="dv">2</span> +<span class="st"> </span><span class="dv">50</span>))
+    
+    <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">y =</span> x, <span class="dt">x =</span> t, <span class="dt">colour =</span> id)) +
+<span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>) +
+<span class="st">        </span><span class="kw">geom_line</span>() +
+<span class="st">        </span><span class="kw">facet_grid</span>(id ~<span class="st"> </span>.) +
+<span class="st">        </span><span class="kw">labs</span>(
+            <span class="dt">title =</span> <span class="st">&quot;Explanatory Variable vesus Order of Observation&quot;</span>,
+            <span class="dt">subtitle =</span> subtitle,
+            <span class="dt">x =</span> <span class="st">&quot;Order&quot;</span>,
+            <span class="dt">y =</span> <span class="st">&quot;x&quot;</span>,
+            <span class="dt">colour =</span> <span class="st">&#39;Simulation&#39;</span>
+        )
+}
+
+<span class="co"># plot simulations --------------------------------------------------------------</span>
+<span class="kw">gg_sims_xy_scatter</span>(sims_xs, <span class="st">&quot;By observation, a linear model seems suitable&quot;</span>) 
+<span class="kw">gg_sims_xorder_scatter</span>(sims_xs, <span class="st">&quot;The order of observations is random&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gg-sims-xs-sctr"></span>
+<img src="applying-regression-with-time-series-data_files/figure-html/gg-sims-xs-sctr-1.png" alt="Scatter plots of cross sectional sample simulation defined by equation (2.1)." width="70%" /><img src="applying-regression-with-time-series-data_files/figure-html/gg-sims-xs-sctr-2.png" alt="Scatter plots of cross sectional sample simulation defined by equation (2.1)." width="70%" />
+<p class="caption">
+Figure 2.1: Scatter plots of cross sectional sample simulation defined by equation <a href="method.html#eq:lin-mod">(2.1)</a>.
+</p>
+</div>
+
+<p>The plots indicate that a lot of the the variance in <span class="math inline">\(y\)</span> is explained by <span class="math inline">\(x\)</span>. The observations appear to be randomly scattered around the line, <span class="math inline">\(y=x\)</span>. Also, it is shown that there are no patterns in the order of observed <span class="math inline">\(x\)</span>. This is what is expected in a cross-sectional sample. Of course, this information is known since this it is a simulation. In practice, though, these plots are useful for exploring the characteristics of the data. These have an important impact on the performance of the model which will be discussed further in §<a href="results.html#results">3</a> and §<a href="discussion.html#discussion">4</a>.</p>
+</div>
+<div id="time-series-simulation" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Time Series Simulation</h3>
+<p>In order to simulate the effect of observing <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> from a time series, an adjustment is made to the simulation of cross-sectional data observations defined in equation <a href="method.html#eq:lin-mod">(2.1)</a>. The time series simulation will be defined as:</p>
+<p><span class="math display" id="eq:lin-ar1-mod">\[
+    \begin{align}
+        y &amp;= x + \eta_t \\
+        \eta_t &amp; = \phi_1 \eta_{t-1} + e
+    \end{align}
+    \tag{2.2}
+\]</span></p>
+<p>where <span class="math inline">\(\phi_1=0.5\)</span>. The term, <span class="math inline">\(\eta_t\)</span>, is an error term which is a modelled as first order auto-regressive (AR1) variable and is one of a family of models referred to as <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">ARIMA</a> models. These are commonly used to characterise patterns in regular, periodic time series modelling. A detailed discussion is out of the scope of this report and the reader may refer to <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span>, <a href="https://www.otexts.org/fpp/8">ch. 8</a>. In short, in the AR1 model, the error level, <span class="math inline">\(\eta\)</span>, is modelled by a regression with itself lagged by 1. Hence, the error term is linearly dependent on its own history. Similarly to the linear model, the term, <span class="math inline">\(e\)</span>, is a normal iid error.</p>
+<p>The explanatory variable, <span class="math inline">\(x\)</span>, is modelled as a sequence of numbers from -10 to 10, increasing at a constant rate, with an AR1 adjustment component.</p>
+<p>The model for <span class="math inline">\(\phi_1=0.5\)</span> is generated as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function to generate simulation ----------------------------------------------</span>
+sim_ts_obs &lt;-<span class="st"> </span>function() {
+   <span class="kw">tibble</span>(
+       <span class="co"># time step -------------------------------------------------------------</span>
+       <span class="dt">t =</span> <span class="dv">1</span>:no_obs,
+       <span class="co"># explanatory variable --------------------------------------------------</span>
+       <span class="dt">x =</span> <span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out =</span> no_obs) +
+<span class="st">           </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.5</span>), <span class="dt">n =</span> no_obs, <span class="dt">sd =</span> <span class="kw">sqrt</span>(<span class="fl">0.5</span>)),
+       <span class="co"># response --------------------------------------------------------------</span>
+       <span class="dt">y =</span> x +<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.5</span>), <span class="dt">n =</span> no_obs, <span class="dt">sd =</span> <span class="kw">sqrt</span>(<span class="fl">0.5</span>))
+    ) 
+}
+
+<span class="co"># repeat simulation many times -------------------------------------------------</span>
+sims_ts &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">id =</span> <span class="kw">map_chr</span>(<span class="dv">1</span>:no_sims, make_id),  
+    <span class="dt">obs =</span> <span class="kw">replicate</span>(no_sims, <span class="kw">sim_ts_obs</span>(), <span class="dt">simplify =</span> <span class="ot">FALSE</span>))  </code></pre></div>
+<p>Consider scatter plots of <span class="math inline">\(y\)</span> versus <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> versus order for the middle 100 observations of the first two simulations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># plot simulations -------------------------------------------------------------</span>
+<span class="kw">gg_sims_xy_scatter</span>(sims_ts, <span class="st">&quot;By observation, a linear model seems suitable&quot;</span>) 
+<span class="kw">gg_sims_xorder_scatter</span>(sims_ts, <span class="st">&quot;The order of observations is not random&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gg-sims-ts-sctr"></span>
+<img src="applying-regression-with-time-series-data_files/figure-html/gg-sims-ts-sctr-1.png" alt="Scatter plots of time series sample simulation defined by equation (2.2)." width="70%" /><img src="applying-regression-with-time-series-data_files/figure-html/gg-sims-ts-sctr-2.png" alt="Scatter plots of time series sample simulation defined by equation (2.2)." width="70%" />
+<p class="caption">
+Figure 2.2: Scatter plots of time series sample simulation defined by equation <a href="method.html#eq:lin-ar1-mod">(2.2)</a>.
+</p>
+</div>
+
+<p>Compare figures <a href="method.html#fig:gg-sims-xs-sctr">2.1</a> and <a href="method.html#fig:gg-sims-ts-sctr">2.2</a>, noting that the <span class="math inline">\(x\)</span> axis in the bottom plot are not on the same scale. There is a clear difference in the characteristic of the cross-sectional and time series sample. Both quite clearly exhibit a linear relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span>; this is emphasised by the black dashed line of <span class="math inline">\(y = x\)</span>. However, contrary to the cross-sectional sample data, the observations for the time series sample are <em>not</em> independent from each other.</p>
+<p>In the time series, each observation is dependent on the preceding observations. There is a clear overall upward trend in <span class="math inline">\(x\)</span> with time. Since <span class="math inline">\(y\)</span> is linear dependent on <span class="math inline">\(x\)</span>, it also has an upward trend. Also there are superimposed local rising and falling trends. This latter feature is due to the auto-regression.</p>
+<p>The nature of the simulation is very similar to real observations of time series data. The impact of dependence between observations will be explored in §<a href="results.html#results">3</a> and §<a href="discussion.html#discussion">4</a>.</p>
+</div>
+</div>
+<div id="generic-modelling-function" class="section level2">
+<h2><span class="header-section-number">2.4</span> Generic Modelling Function</h2>
+<p>Each of the 10000 simulations represents a set of 500 observations that <em>could</em> have been sampled by an analyst. The R programming language provides many functions and packages which can be used to apply <em>models</em> to data. In this study, two models will be applied: a linear regression and ARIMAX.</p>
+<p>In the next block of code, a function is defined which will iterate through each simulation and apply a model of the users choice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">apply_model &lt;-<span class="st"> </span>function(df, model, <span class="dt">packages =</span> <span class="ot">NULL</span>) {
+    
+    <span class="co"># set up cluster with one less core than is avaliable ----------------------</span>
+    <span class="co"># note: must register packages and user defined functions </span>
+    my_cluster &lt;-<span class="st"> </span><span class="kw">create_cluster</span>() %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">cluster_library</span>(<span class="kw">c</span>(<span class="st">&#39;tidyverse&#39;</span>, <span class="st">&#39;broom&#39;</span>, packages)) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">cluster_assign_value</span>(<span class="st">&#39;model&#39;</span>, model) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">set_default_cluster</span>()
+    
+    <span class="co"># compute linear model -----------------------------------------------------</span>
+    <span class="co"># extract coefficients and confidence intervals for x as tidy data frames</span>
+    df %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">partition</span>(<span class="dt">cluster =</span> my_cluster) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">mod =</span> <span class="kw">map</span>(obs, model),
+               <span class="dt">coef =</span> <span class="kw">map</span>(mod, tidy),
+               <span class="dt">conf_int =</span> <span class="kw">map</span>(mod, confint_tidy)) %&gt;%
+<span class="st">        </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">ungroup</span>() %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">arrange</span>(id)
+}</code></pre></div>
+<p>This function has been developed since it will be reused several times in this study. The above code block is worthy of some explanation:</p>
+<ul>
+<li><p>The arguments parsed to <code>apply_model</code> are the data frame of simulations, a function to apply the model and any packages required for the model function.</p></li>
+<li><p>The <code>model</code> function must take one argument which is the data frame of observations. These are nested within the simulation data frame in the column titled <code>obs</code>.</p></li>
+<li><p>The first block of code in the function initiates multi-core processing. <code>partition</code> splits the data frame for allocation to each core and <code>collect</code> collects the results together. These functions are from the <code>multidplyr</code> package which facilitates parallel analysis across multiple cores and significant time savings are achieved compared to serial computation.</p></li>
+<li><p><code>map</code> is one of a family of functions from the <code>purrr</code> package for iterating functions across list elements. In this case, the <code>model</code> function is applied to each of observations nested in the simulation data frame.</p></li>
+<li><p>The <code>tidy</code> function from the <code>broom</code> package, is a wrapper around base R’s <code>summary.lm</code> function that returns a tidy data frame summarising the results of the model. <code>confint_tidy</code> is a similar wrapper around base R’s <code>confint</code> function which returns confidence intervals as a tidy data frame.</p></li>
+<li><p>The <code>ungroup</code>/<code>arrange</code> tidy up the data frame after being randomly split into groups for allocation to the cores for parallel processing.</p></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-wickham_20170127">
+<p>Wickham, Hadley. 2017. <em>tidyverse: Easily Install and Load ’Tidyverse’ Packages</em>. <a href="https://CRAN.R-project.org/package=tidyverse" class="uri">https://CRAN.R-project.org/package=tidyverse</a>.</p>
+</div>
+<div id="ref-wickham_2009mmdd">
+<p>Wickham, Hadley. 2009. <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
+</div>
+<div id="ref-robinson_20170213">
+<p>Robinson, David. 2016. <em>Broom: Convert Statistical Analysis Objects into Tidy Data Frames</em>. <a href="https://CRAN.R-project.org/package=broom" class="uri">https://CRAN.R-project.org/package=broom</a>.</p>
+</div>
+<div id="ref-hyndman_20170222">
+<p>Hyndman, Rob J. 2017. <em>forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="http://github.com/robjhyndman/forecast" class="uri">http://github.com/robjhyndman/forecast</a>.</p>
+</div>
+<div id="ref-hyndman_2014mm">
+<p>Hyndman, Rob J., and George Athanasopoulos. 2014. <em>Forecasting: Principles and Practice</em>. OTexts. <a href="https://www.otexts.org/fpp" class="uri">https://www.otexts.org/fpp</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

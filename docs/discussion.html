@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applying Regression with Time Series Data</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Applying Regression with Time Series Data">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applying Regression with Time Series Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applying Regression with Time Series Data" />
+  
+  
+  
+
+<meta name="author" content="Nick P Taylor">
+
+
+<meta name="date" content="2017-04-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="results.html">
+<link rel="next" href="conclusion.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="method.html"><a href="method.html"><i class="fa fa-check"></i><b>2</b> Method</a><ul>
+<li class="chapter" data-level="2.1" data-path="method.html"><a href="method.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="method.html"><a href="method.html#r-packages"><i class="fa fa-check"></i><b>2.2</b> R Packages</a></li>
+<li class="chapter" data-level="2.3" data-path="method.html"><a href="method.html#simulations"><i class="fa fa-check"></i><b>2.3</b> Simulations</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="method.html"><a href="method.html#cross-sectional-simulation"><i class="fa fa-check"></i><b>2.3.1</b> Cross-sectional Simulation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="method.html"><a href="method.html#time-series-simulation"><i class="fa fa-check"></i><b>2.3.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="method.html"><a href="method.html#generic-modelling-function"><i class="fa fa-check"></i><b>2.4</b> Generic Modelling Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a><ul>
+<li class="chapter" data-level="3.1" data-path="results.html"><a href="results.html#linear-regression-modelling"><i class="fa fa-check"></i><b>3.1</b> Linear Regression Modelling</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="results.html"><a href="results.html#cross-sectional-sample"><i class="fa fa-check"></i><b>3.1.1</b> Cross-Sectional Sample</a></li>
+<li class="chapter" data-level="3.1.2" data-path="results.html"><a href="results.html#time-series-simulation-1"><i class="fa fa-check"></i><b>3.1.2</b> Time Series Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="results.html"><a href="results.html#arimax-modelling"><i class="fa fa-check"></i><b>3.2</b> ARIMAX Modelling</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="results.html"><a href="results.html#fixed-first-order-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.1</b> Fixed First Order Auto-regressive Error</a></li>
+<li class="chapter" data-level="3.2.2" data-path="results.html"><a href="results.html#automatically-calculated-auto-regressive-error"><i class="fa fa-check"></i><b>3.2.2</b> Automatically Calculated Auto-regressive Error</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applying Regression with Time Series Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="discussion" class="section level1">
+<h1><span class="header-section-number">4</span> Discussion</h1>
+<p>Table <a href="discussion.html#tab:summary-results">4.1</a> summarises the results from the simulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="st">`</span><span class="dt">Description</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(
+        <span class="st">&quot;Linear Model applied to Cross-Sectional Simulation&quot;</span>,
+        <span class="st">&quot;Linear Model applied to Time Series Simulation&quot;</span>,
+        <span class="st">&quot;AR1 ARIMAX Model applied to Time Series Simulation&quot;</span>,
+        <span class="st">&quot;Automatic ARIMAX Model applied to Time Series Simulation&quot;</span>
+    ),
+    <span class="st">`</span><span class="dt">Mean of Estimated Coefficient x</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(
+        <span class="kw">mean</span>(sims_xs_fit_lm_params$estimate),
+        <span class="kw">mean</span>(sims_ts_fit_lm_params$estimate),
+        <span class="kw">mean</span>(sims_ts_fit_arimax_ar1_params$estimate),
+        <span class="kw">mean</span>(sims_ts_fit_arimax_auto_params$estimate)
+    ),
+    <span class="st">`</span><span class="dt">% of 95% CI Containing Actual Coefficient x</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(
+        <span class="kw">mean</span>(<span class="dv">100</span> *<span class="st"> </span>sims_xs_fit_lm_params$in_bound),
+        <span class="kw">mean</span>(<span class="dv">100</span> *<span class="st"> </span>sims_ts_fit_lm_params$in_bound),
+        <span class="kw">mean</span>(<span class="dv">100</span> *<span class="st"> </span>sims_ts_fit_arimax_ar1_params$in_bound), 
+        <span class="kw">mean</span>(<span class="dv">100</span> *<span class="st"> </span>sims_ts_fit_arimax_auto_params$in_bound)
+    )
+)
+
+knitr::<span class="kw">kable</span>(my_df, <span class="dt">caption =</span> <span class="st">&quot;Summary of Results&quot;</span>)</code></pre></div>
+<table>
+<caption><span id="tab:summary-results">Table 4.1: </span>Summary of Results</caption>
+<thead>
+<tr class="header">
+<th align="left">Description</th>
+<th align="right">Mean of Estimated Coefficient x</th>
+<th align="right">% of 95% CI Containing Actual Coefficient x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Linear Model applied to Cross-Sectional Simulation</td>
+<td align="right">1.0000899</td>
+<td align="right">94.9800</td>
+</tr>
+<tr class="even">
+<td align="left">Linear Model applied to Time Series Simulation</td>
+<td align="right">0.9999779</td>
+<td align="right">74.7300</td>
+</tr>
+<tr class="odd">
+<td align="left">AR1 ARIMAX Model applied to Time Series Simulation</td>
+<td align="right">0.9999866</td>
+<td align="right">94.5400</td>
+</tr>
+<tr class="even">
+<td align="left">Automatic ARIMAX Model applied to Time Series Simulation</td>
+<td align="right">0.9999722</td>
+<td align="right">94.0818</td>
+</tr>
+</tbody>
+</table>
+<p>In <a href="https://www.otexts.org/fpp/4/8">§4.8</a> of <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span>, it is explained that if a linear regression is applied to time series samples, although the coefficient estimates model are unbiased, they are inefficient, which means that the variance of the estimates is higher than that which would be the case if the there was no auto-regression. This is what is observed if the confidence interval plots are studied i.e. compare <a href="results.html#fig:gg-xs-fit-lm-ci">3.2</a> to figure <a href="results.html#fig:gg-ts-fit-lm-ci">3.4</a>. Notice how that although the <span class="math inline">\(x\)</span> coefficient is known to be 1 in both cases, that the variance of the estimated expected values of <span class="math inline">\(x\)</span> is greater for the time series simulation. This is what causes the CIs to be incorrect.</p>
+<p>When applying a regression model, the validity of the estimates and confidence intervals is conditional upon:</p>
+<ol style="list-style-type: decimal">
+<li><p>The relationship between the explanatory variable and the response variable being linear.</p></li>
+<li><p>The residuals being independent from one another.</p></li>
+<li><p>The residuals having constant variance (heteroscedastic).</p></li>
+<li><p>The residuals being (nearly) normal.</p></li>
+</ol>
+<p>If these conditions do not hold, one of the impacts is that statistical inference, including the calculation of confidence intervals, will be incorrect. In §<a href="results.html#results">3</a>, the linearity of the relationship was confirmed by observation of the data in figures <a href="method.html#fig:gg-sims-xs-sctr">2.1</a> and <a href="method.html#fig:gg-sims-ts-sctr">2.2</a>.</p>
+<p>Turning attention to the residuals, it is informative to plot the residuals in order and to plot the auto-correlation function (ACF/PACF). Below, the function <code>forecast::ggtsdisplay</code> is used to produce these plots for:</p>
+<ul>
+<li><p>The linear model applied to the cross-sectional sample in figure <a href="discussion.html#fig:gg-xs-lm-fit-resids">4.1</a></p></li>
+<li><p>The linear model applied to the time series sample in figure <a href="discussion.html#fig:gg-ts-lm-fit-resids">4.2</a></p></li>
+<li><p>The AR1 ARIMAX model applied to the time series sample in figure <a href="discussion.html#fig:gg-arimax-ar1-fit-resids">4.3</a></p></li>
+</ul>
+<p>Note that only the residual for the first model in each simulation is shown.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_fit_resids_tsdisplay &lt;-<span class="st"> </span>function(df) {
+    df %&gt;%
+<span class="st">        </span><span class="kw">unnest</span>(obs, resid) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">filter</span>(
+            id ==<span class="st"> &quot;sim_001&quot;</span>,
+            <span class="kw">between</span>(t, no_obs/<span class="dv">2</span> -<span class="st"> </span><span class="dv">100</span>, no_obs/<span class="dv">2</span> +<span class="st"> </span><span class="dv">100</span>)) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">select</span>(resid) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">ts</span>() %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">ggtsdisplay</span>(<span class="dt">main =</span> <span class="st">&quot;ACF plot&quot;</span>)
+}
+
+ljung_box_test &lt;-<span class="st"> </span>function(df, <span class="dt">fitdf =</span> fitdf) {
+    <span class="kw">Box.test</span>(df, <span class="dt">lag =</span> <span class="dv">10</span>, <span class="dt">fitdf =</span> fitdf, <span class="dt">type =</span> <span class="st">&quot;Ljung&quot;</span>)$p.value
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sims_xs_lm_fit_resids &lt;-<span class="st"> </span>sims_xs_lm_fit %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">map</span>(mod, resid)) %T&gt;%
+<span class="st">    </span><span class="kw">gg_fit_resids_tsdisplay</span>() %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ljung_box_test =</span> <span class="kw">map_dbl</span>(resid, ljung_box_test, <span class="dt">fitdf =</span> <span class="dv">0</span>))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gg-xs-lm-fit-resids"></span>
+<img src="applying-regression-with-time-series-data_files/figure-html/gg-xs-lm-fit-resids-1.png" alt="ACF Plot for Residuals for the linear model applied to the cross-sectional sample." width="70%" />
+<p class="caption">
+Figure 4.1: ACF Plot for Residuals for the linear model applied to the cross-sectional sample.
+</p>
+</div>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sims_ts_lm_fit_resids &lt;-<span class="st"> </span>sims_ts_lm_fit %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">map</span>(mod, resid)) %T&gt;%
+<span class="st">    </span><span class="kw">gg_fit_resids_tsdisplay</span>() %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ljung_box_test =</span> <span class="kw">map_dbl</span>(resid, ljung_box_test, <span class="dt">fitdf =</span> <span class="dv">0</span>))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gg-ts-lm-fit-resids"></span>
+<img src="applying-regression-with-time-series-data_files/figure-html/gg-ts-lm-fit-resids-1.png" alt="ACF Plot for Residuals for the linear model applied to the time series sample." width="70%" />
+<p class="caption">
+Figure 4.2: ACF Plot for Residuals for the linear model applied to the time series sample.
+</p>
+</div>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sims_ts_arimax_ar1_fit_resids &lt;-<span class="st"> </span>sims_ts_arimax_ar1_fit %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">map</span>(mod, resid)) %T&gt;%
+<span class="st">    </span><span class="kw">gg_fit_resids_tsdisplay</span>() %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ljung_box_test =</span> <span class="kw">map_dbl</span>(resid, ljung_box_test, <span class="dt">fitdf =</span> <span class="dv">1</span>))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gg-arimax-ar1-fit-resids"></span>
+<img src="applying-regression-with-time-series-data_files/figure-html/gg-arimax-ar1-fit-resids-1.png" alt="ACF Plot for Residuals for the AR1 ARIMAX model applied to the time series sample." width="70%" />
+<p class="caption">
+Figure 4.3: ACF Plot for Residuals for the AR1 ARIMAX model applied to the time series sample.
+</p>
+</div>
+
+<p>In the above plots, the time series plots gives an indication as to whether any pattern exists in the residuals. For example, if a residual is high or low, is it more likely that the succeeding one will also be high or low. The ACF plot shows lines which indicate the magnitude of the residual regressed against itself lagged by various amounts. If the residual does not exhibit auto-regression, most of the lines (95%) should be less than the critical values shown by the blue dashed line. This line indicates a 5% significance level. Also, PACF plots are shown.</p>
+<p>The interpretation of ACF/PACF plots are described in <a href="https://www.otexts.org/fpp/r8/5">§8.5</a> of <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span>. The residuals for the linear model applied to the cross-sectional sample (figure <a href="discussion.html#fig:gg-xs-lm-fit-resids">4.1</a>) show only one slightly significant peak at lag 17. Intuitively, a significant peak at lag 17 is likely to be due to sampling chance rather than being representative of a real population effect. Note that for 20 lags, a white noise sample will be expected to show 1 significant peak, since the significance level is 5%.</p>
+<p>In figure <a href="discussion.html#fig:gg-ts-lm-fit-resids">4.2</a> which is for the linear model applied to the time series, one strong peak is observed at lag 1 and a second weaker one at lag 2 for the ACF plot. Also, a strong peak is observed at lag 1 for the PACF plot. This pattern suggests that there is auto-regression in the residuals. Finally, the plot in figure <a href="#fig:gg-ts-arimax-ar1-fit-resids"><strong>??</strong></a> for the ARIMAX model applied to the time series shows no evidence of remaining auto-regression in the residuals.</p>
+<p>Visual inspections can be supported by formal statistical tests. These are discussed in <span class="citation">Rob J. Hyndman and Athanasopoulos (<a href="#ref-hyndman_2014mm">2014</a>)</span>, <a href="https://www.otexts.org/fpp/5/4">§5.4</a>. In the code block above, the <a href="https://en.wikipedia.org/wiki/Ljung%E2%80%93Box_test">Ljung-Box Test</a> is applied to the residuals for each simulation run. This is a statistical test for the presence of auto-correlation. The null hypothesis is that there is no auto-correlation, therefore, it is expected that 95% of residuals that do not contain auto-regression will have p-value of more than 0.05. In the next code block, a table is generated to verify this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="st">`</span><span class="dt">Description</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(
+        <span class="st">&quot;Linear Model applied to Cross-Sectional Simulation&quot;</span>,
+        <span class="st">&quot;Linear Model applied to Time Series Simulation&quot;</span>,
+        <span class="st">&quot;AR1 ARIMAX Model applied to Time Series Simulation&quot;</span>
+    ),
+    <span class="st">`</span><span class="dt">Number of p-values &gt; 0.05 for Ljung Box Test</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(
+        <span class="kw">mean</span>(sims_xs_lm_fit_resids$ljung_box_test &gt;<span class="st"> </span><span class="fl">0.05</span>),
+        <span class="kw">mean</span>(sims_ts_lm_fit_resids$ljung_box_test &gt;<span class="st"> </span><span class="fl">0.05</span>),
+        <span class="kw">mean</span>(sims_ts_arimax_ar1_fit_resids$ljung_box_test &gt;<span class="st"> </span><span class="fl">0.05</span>)
+    ))
+
+knitr::<span class="kw">kable</span>(my_df, <span class="dt">caption =</span> <span class="st">&quot;Summary of Ljung-Box Tests for Auto-regression Remaining in Residuals.&quot;</span>)</code></pre></div>
+<table>
+<caption><span id="tab:summary-ljung-box-tests">Table 4.2: </span>Summary of Ljung-Box Tests for Auto-regression Remaining in Residuals.</caption>
+<thead>
+<tr class="header">
+<th align="left">Description</th>
+<th align="right">Number of p-values &gt; 0.05 for Ljung Box Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Linear Model applied to Cross-Sectional Simulation</td>
+<td align="right">0.9461</td>
+</tr>
+<tr class="even">
+<td align="left">Linear Model applied to Time Series Simulation</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">AR1 ARIMAX Model applied to Time Series Simulation</td>
+<td align="right">0.9457</td>
+</tr>
+</tbody>
+</table>
+<p>The results shown in table <a href="discussion.html#tab:summary-ljung-box-tests">4.2</a> demonstrates that the Ljung-Box test performs as expected. The test selects the null hypothesis at the 5% significance level in 95% of cases when applied to the residuals for the linear model applied to the cross-sectional sample or the ARIMAX model applied to the time series simulations. However, when applying the linear model to the time series simulations, the Ljung-Box test selects the alternative hypothesis (i.e. that there <em>is</em> auto-correlation in the residuals) at the 5% significance level in every case.</p>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-hyndman_2014mm">
+<p>Hyndman, Rob J., and George Athanasopoulos. 2014. <em>Forecasting: Principles and Practice</em>. OTexts. <a href="https://www.otexts.org/fpp" class="uri">https://www.otexts.org/fpp</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
